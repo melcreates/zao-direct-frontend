@@ -117,50 +117,11 @@ const HeaderOne = () => {
             {/* Nav Menu Start */}
             <ul className='nav-menu flex-align nav-menu--mobile'>
               {/* Home Menu */}
-              <li
-                onClick={() => handleMenuClick(0)}
-                className={`on-hover-item nav-menu__item has-submenu ${
-                  activeIndex === 0 ? "d-block" : ""
-                }`}
-              >
-                <Link to='#' className='nav-menu__link'>
+              <li>
+                <Link to='/' className='nav-menu__link'>
                   Home
                 </Link>
-                <ul
-                  className={`on-hover-dropdown common-dropdown nav-submenu scroll-sm ${
-                    activeIndex === 0 ? "open" : ""
-                  }`}
-                >
-                  <li className='common-dropdown__item nav-submenu__item'>
-                    <Link
-                      to='/'
-                      className='common-dropdown__link nav-submenu__link hover-bg-neutral-100'
-                      onClick={() => setActiveIndex(null)}
-                    >
-                      {" "}
-                      Home Grocery
-                    </Link>
-                  </li>
-                  <li className='common-dropdown__item nav-submenu__item'>
-                    <Link
-                      to='/index-two'
-                      className='common-dropdown__link nav-submenu__link hover-bg-neutral-100'
-                      onClick={() => setActiveIndex(null)}
-                    >
-                      {" "}
-                      Home Electronics
-                    </Link>
-                  </li>
-                  <li className='common-dropdown__item nav-submenu__item'>
-                    <Link
-                      to='/index-three'
-                      className='common-dropdown__link nav-submenu__link hover-bg-neutral-100'
-                      onClick={() => setActiveIndex(null)}
-                    >
-                      Home Fashion
-                    </Link>
-                  </li>
-                </ul>
+                
               </li>
 
               {/* Shop Menu */}
@@ -722,19 +683,8 @@ const HeaderOne = () => {
                       className='js-example-basic-single border border-gray-200 border-end-0'
                       name='state'
                     >
-                      <option value={1}>Alabama</option>
-                      <option value={1}>Alaska</option>
-                      <option value={1}>Arizona</option>
-                      <option value={1}>Delaware</option>
-                      <option value={1}>Florida</option>
-                      <option value={1}>Georgia</option>
-                      <option value={1}>Hawaii</option>
-                      <option value={1}>Indiana</option>
-                      <option value={1}>Marzland</option>
-                      <option value={1}>Nevada</option>
-                      <option value={1}>New Jersey</option>
-                      <option value={1}>New Mexico</option>
-                      <option value={1}>New York</option>
+                      <option value={1}>Kenya</option>
+      
                     </select>
                   </div>
                 </div>
@@ -1174,49 +1124,10 @@ const HeaderOne = () => {
               <div className='header-menu d-lg-block d-none'>
                 {/* Nav Menu Start */}
                 <ul className='nav-menu flex-align '>
-                  <li className='on-hover-item nav-menu__item has-submenu'>
-                    <Link to='#' className='nav-menu__link'>
+                  <li className=' nav-menu__item'>
+                    <Link to='/' className='nav-menu__link'>
                       Home
                     </Link>
-                    <ul className='on-hover-dropdown common-dropdown nav-submenu scroll-sm'>
-                      <li className='common-dropdown__item nav-submenu__item'>
-                        <NavLink
-                          to='/'
-                          className={(navData) =>
-                            navData.isActive
-                              ? "common-dropdown__link nav-submenu__link hover-bg-neutral-100 activePage"
-                              : "common-dropdown__link nav-submenu__link hover-bg-neutral-100"
-                          }
-                        >
-                          Home Grocery
-                        </NavLink>
-                      </li>
-                      <li className='common-dropdown__item nav-submenu__item'>
-                        <NavLink
-                          to='/index-two'
-                          className={(navData) =>
-                            navData.isActive
-                              ? "common-dropdown__link nav-submenu__link hover-bg-neutral-100 activePage"
-                              : "common-dropdown__link nav-submenu__link hover-bg-neutral-100"
-                          }
-                        >
-                          {" "}
-                          Home Electronics
-                        </NavLink>
-                      </li>
-                      <li className='common-dropdown__item nav-submenu__item'>
-                        <NavLink
-                          to='/index-three'
-                          className={(navData) =>
-                            navData.isActive
-                              ? "common-dropdown__link nav-submenu__link hover-bg-neutral-100 activePage"
-                              : "common-dropdown__link nav-submenu__link hover-bg-neutral-100"
-                          }
-                        >
-                          Home Fashion
-                        </NavLink>
-                      </li>
-                    </ul>
                   </li>
                   <li className='on-hover-item nav-menu__item has-submenu'>
                     <Link to='#' className='nav-menu__link'>
