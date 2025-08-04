@@ -95,7 +95,7 @@ const Contact = () => {
                                             type="submit"
                                             className="btn btn-main py-18 px-32 rounded-8"
                                         >
-                                            Get a Quote
+                                            Submit
                                         </button>
                                     </div>
                                 </div>
@@ -107,32 +107,32 @@ const Contact = () => {
                             <h6 className="mb-48">Get In Touch</h6>
                             <div className="flex-align gap-16 mb-16">
                                 <span className="w-40 h-40 flex-center rounded-circle border border-gray-100 text-main-two-600 text-2xl flex-shrink-0">
-                                    <i className="ph-fill ph-phone-call" />
+                                    <i className="ph-fill ph-phone-call" style={{color: '#299E60'}}/>
                                 </span>
                                 <Link
                                     to="/tel:+00123456789"
                                     className="text-md text-gray-900 hover-text-main-600"
                                 >
-                                    +00 123 456 789
+                                    +254 117 383 465
                                 </Link>
                             </div>
                             <div className="flex-align gap-16 mb-16">
                                 <span className="w-40 h-40 flex-center rounded-circle border border-gray-100 text-main-two-600 text-2xl flex-shrink-0">
-                                    <i className="ph-fill ph-envelope" />
+                                    <i className="ph-fill ph-envelope" style={{color: '#299E60'}}/>
                                 </span>
                                 <Link
                                     to="/mailto:support24@marketpro.com"
                                     className="text-md text-gray-900 hover-text-main-600"
                                 >
-                                    support24@marketpro.com
+                                    support@zaodirect.co.ke
                                 </Link>
                             </div>
                             <div className="flex-align gap-16 mb-0">
                                 <span className="w-40 h-40 flex-center rounded-circle border border-gray-100 text-main-two-600 text-2xl flex-shrink-0">
-                                    <i className="ph-fill ph-map-pin" />
+                                    <i className="ph-fill ph-map-pin" style={{color: '#299E60'}}/>
                                 </span>
                                 <span className="text-md text-gray-900 ">
-                                    789 Inner Lane, California, USA
+                                    Wuyi Plaza, Galana Road
                                 </span>
                             </div>
                         </div>

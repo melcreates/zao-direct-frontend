@@ -2,7 +2,7 @@ import React from 'react'
 
 const ShippingOne = () => {
     return (
-        <section className="shipping mb-24" id="shipping">
+        <section className="shipping mb-24" id="shipping" style={{paddingTop: '50px'}}>
             <div className="container container-lg">
                 <div className="row gy-4">
                     <div className="col-xxl-3 col-sm-6">
@@ -11,9 +11,9 @@ const ShippingOne = () => {
                                 <i className="ph-fill ph-car-profile" />
                             </span>
                             <div className="">
-                                <h6 className="mb-0">Free Shipping</h6>
+                                <h6 className="mb-0">Readily Available Market</h6>
                                 <span className="text-sm text-heading">
-                                    Free shipping all over the US
+                                    Buyers all around Kenya
                                 </span>
                             </div>
                         </div>
@@ -26,7 +26,7 @@ const ShippingOne = () => {
                             <div className="">
                                 <h6 className="mb-0"> 100% Satisfaction</h6>
                                 <span className="text-sm text-heading">
-                                    Free shipping all over the US
+                                     Fresh produce, fair prices—if it’s not right, we’ll fix it.
                                 </span>
                             </div>
                         </div>
@@ -39,7 +39,7 @@ const ShippingOne = () => {
                             <div className="">
                                 <h6 className="mb-0"> Secure Payments</h6>
                                 <span className="text-sm text-heading">
-                                    Free shipping all over the US
+                                    Pay safely via M-Pesa, card, or bank—your data is protected.
                                 </span>
                             </div>
                         </div>
@@ -52,7 +52,7 @@ const ShippingOne = () => {
                             <div className="">
                                 <h6 className="mb-0"> 24/7 Support</h6>
                                 <span className="text-sm text-heading">
-                                    Free shipping all over the US
+                                    Talk to us anytime via WhatsApp, call, or chat—we’re here for you.
                                 </span>
                             </div>
                         </div>

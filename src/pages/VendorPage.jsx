@@ -26,7 +26,7 @@ const VendorPage = () => {
       <HeaderOne />
 
       {/* BreadcrumbThree */}
-      <BreadcrumbThree title={"Vendor List"} />
+      <BreadcrumbThree title={"Farmers List"} />
 
       {/* VendorsList */}
       <VendorsList />
@@ -34,8 +34,6 @@ const VendorPage = () => {
       {/* ShippingOne */}
       <ShippingOne />
 
-      {/* NewsletterOne */}
-      <NewsletterOne />
 
       {/* FooterOne */}
       <FooterOne />

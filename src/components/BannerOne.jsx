@@ -54,7 +54,7 @@ const BannerOne = () => {
                         </span>
                     </a>
                     <img
-                        src="/assets/images/bg/banner-bg.png"
+                        src="/assets/images/bg/ZaoDirect-bg.jpg"
                         alt=""
                         className="banner-img position-absolute inset-block-start-0 inset-inline-start-0 w-100 h-100 z-n1 object-fit-cover rounded-24"
                     />
@@ -67,8 +67,8 @@ const BannerOne = () => {
                             <div className="banner-slider__item">
                                 <div className="banner-slider__inner flex-between position-relative">
                                     <div className="banner-item__content">
-                                        <h1 className="banner-item__title bounce">
-                                            Daily Grocery Order and Get Express Delivery
+                                        <h1 className="banner-item__title bounce" style={{color: 'white'}}>
+                                            Built for Farmers. Backed by Buyers.
                                         </h1>
                                         <Link
                                             to="/shop"
@@ -80,16 +80,14 @@ const BannerOne = () => {
                                             </span>
                                         </Link>
                                     </div>
-                                    <div className="banner-item__thumb">
-                                        <img src="assets/images/thumbs/banner-img1.png" alt="" />
-                                    </div>
+                                
                                 </div>
                             </div>
                             <div className="banner-slider__item">
                                 <div className="banner-slider__inner flex-between position-relative">
                                     <div className="banner-item__content">
-                                        <h1 className="banner-item__title">
-                                            Daily Grocery Order and Get Express Delivery
+                                        <h1 className="banner-item__title" style={{color: 'white'}}>
+                                            Transparent trade. Trusted connections.
                                         </h1>
                                         <Link
                                             to="/shop"
@@ -101,9 +99,7 @@ const BannerOne = () => {
                                             </span>
                                         </Link>
                                     </div>
-                                    <div className="banner-item__thumb">
-                                        <img src="assets/images/thumbs/banner-img3.png" alt="" />
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </Slider>
