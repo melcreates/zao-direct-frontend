@@ -1,14 +1,16 @@
-import React, { useEffect, useState, useContext} from "react"
+import React, { useEffect, useState, useContext} from "react";
 import query from "jquery";
 import { Link, NavLink } from "react-router-dom";
 import FormCategoryDropDown from "./FormCategoryDropDown";
 import HeaderCategoryDropDown from "./HeaderCategoryDropDown";
 import SearchBar from "./SearchBar"; 
 import { useCart } from '../helper/CartContext';
+import { UserContext } from '../helper/UserContext';
+
 
 
 const HeaderOne = () => {
-  
+  const { user } = useContext(UserContext);
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
     window.onscroll = () => {
@@ -213,7 +215,7 @@ const HeaderOne = () => {
                   </li>
                   <li className='common-dropdown__item nav-submenu__item'>
                     <Link
-                      to='/become-seller'
+                      to='/become-farmer'
                       className='common-dropdown__link nav-submenu__link hover-bg-neutral-100'
                       onClick={() => setActiveIndex(null)}
                     >
@@ -269,7 +271,7 @@ const HeaderOne = () => {
             <ul className='flex-align flex-wrap d-none d-md-flex'>
               <li className='border-right-item'>
                 <Link
-                  to='#'
+                  to='/become-farmer'
                   className='text-white text-sm hover-text-decoration-underline'
                 >
                   Become A Farmer
@@ -277,12 +279,13 @@ const HeaderOne = () => {
               </li>
               <li className='border-right-item'>
                 <Link
-                  to='#'
+                  to='/become-buyer'
                   className='text-white text-sm hover-text-decoration-underline'
                 >
-                  About us
+                  Register Your Shop
                 </Link>
               </li>
+              
             </ul>
             <ul className='header-top__right flex-align flex-wrap'>
               <li className='on-hover-item border-right-item border-right-item-sm-space has-submenu arrow-white'>
@@ -498,7 +501,23 @@ const HeaderOne = () => {
                   </li>
                 </ul>
               </li>
+              {user ? 
               <li className='border-right-item'>
+                <Link
+                  to='/account'
+                  className='text-white text-sm py-8 flex-align gap-6'
+                >
+                  <span className='icon text-md d-flex'>
+                    {" "}
+                    <i className='ph ph-user-circle' />{" "}
+                  </span>
+                  <span className='hover-text-decoration-underline'>
+                    {user.name}
+                  </span>
+                </Link>
+                </li>
+                : 
+                <li className='border-right-item'>
                 <Link
                   to='/account'
                   className='text-white text-sm py-8 flex-align gap-6'
@@ -512,6 +531,8 @@ const HeaderOne = () => {
                   </span>
                 </Link>
               </li>
+                }
+              
             </ul>
           </div>
         </div>

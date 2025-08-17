@@ -85,17 +85,7 @@ const FooterOne = () => {
                             </li>
                             <li className="mb-16">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Our Frmers
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Extended Plan
-                                </Link>
-                            </li>
-                            <li className="">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Community
+                                    Our Farmers
                                 </Link>
                             </li>
                         </ul>
@@ -151,27 +141,13 @@ const FooterOne = () => {
                                     Shoping Cart
                                 </Link>
                             </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Compare
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Help Ticket
-                                </Link>
-                            </li>
-                            <li className="">
-                                <Link to="/wishlist" className="text-gray-600 hover-text-main-600">
-                                    Wishlist
-                                </Link>
-                            </li>
+                            
                         </ul>
                     </div>
                     <div className="footer-item">
                         <h6 className="footer-item__title">Categories</h6>
                         <ul className="footer-menu">
-                            {categories.slice(0,6).map((cat,index)=>(
+                            {categories.slice(0,4).map((cat,index)=>(
                                 <li className="mb-16" key={index}>
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
                                     {cat.category}

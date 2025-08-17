@@ -1,6 +1,6 @@
 import React from "react";
 
-const StepsSection = () => {
+const BuyerStepsSection = () => {
   return (
     <section className='step py-80'>
       <div className='position-relative z-1'>
@@ -14,9 +14,10 @@ const StepsSection = () => {
             <div className='col-lg-6'>
               <div className='step-content'>
                 <div className='section-heading ms-auto text-end'>
-                  <h5 className=''> Launch Your Farm & Reach Thousands of Buyers</h5>
+                  <h5 className=''> Shop Fresh Produce Directly from Farmers</h5>
                   <span className='text-gray-600'>
-                    Join ZaoDirect today and tap into a growing marketplace that connects farmers and food producers directly with businesses and households across Kenya.
+                    Skip the middleman and get high-quality, locally sourced produce delivered to your doorstep or business.  
+                    Join ZaoDirect and enjoy transparency, freshness, and fair prices.
                   </span>
                 </div>
                 <div className='d-flex flex-column align-items-end gap-56'>
@@ -24,7 +25,7 @@ const StepsSection = () => {
                     <div className='text-end'>
                       <h5 className='mb-8'>Step 01</h5>
                       <p className='text-gray-600'>
-                        Create an account on our Platform. It is fast and free.
+                        Sign up as a Buyer on ZaoDirect — it’s quick and free.
                       </p>
                     </div>
                     <div className='w-90 h-90 flex-center bg-main-two-100 rounded-circle'>
@@ -38,7 +39,7 @@ const StepsSection = () => {
                       <h5 className='mb-8'>Step 02</h5>
                       <p className='text-gray-600'>
                         {" "}
-                        Upload your products and the display in your shop.
+                        Browse fresh produce from verified farmers and select what you need.
                       </p>
                     </div>
                     <div className='w-90 h-90 flex-center bg-main-two-100 rounded-circle'>
@@ -51,8 +52,7 @@ const StepsSection = () => {
                     <div className='text-end'>
                       <h5 className='mb-8'>Step 03</h5>
                       <p className='text-gray-600'>
-                        We'll verify your account and then you can start
-                        selling!
+                        Place your order and get it delivered directly to you — fresh and on time.
                       </p>
                     </div>
                     <div className='w-90 h-90 flex-center bg-main-two-100 rounded-circle'>
@@ -66,7 +66,7 @@ const StepsSection = () => {
             </div>
             <div className='col-lg-6'>
               <div className='text-center'>
-                <img src='assets/images/thumbs/planting.jpg' alt='' />
+                <img src='assets/images/thumbs/shop.png' alt='' />
               </div>
             </div>
           </div>
@@ -76,4 +76,4 @@ const StepsSection = () => {
   );
 };
 
-export default StepsSection;
+export default BuyerStepsSection;

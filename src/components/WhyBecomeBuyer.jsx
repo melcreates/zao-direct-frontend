@@ -1,13 +1,13 @@
 import React from "react";
 
-const WhyBecomeSeller = () => {
+const WhyBecomeBuyer = () => {
   return (
     <section className='why-seller py-80'>
       <div className='container'>
         <div className='section-heading text-center mx-auto'>
-          <h5 className=''>Why become a farmer on ZaoDirect?</h5>
+          <h5 className=''>Why Register Your Shop on ZaoDirect?</h5>
           <span className='text-gray-600'>
-            We connect you directly to buyers, cut out the middleman, and help you earn more from every harvest.
+            Get fresh, high-quality produce at fair prices, delivered right to your door, straight from trusted farmers.
           </span>
         </div>
         <div className='row gy-4 justify-content-center'>
@@ -16,10 +16,9 @@ const WhyBecomeSeller = () => {
               <span className='text-main-two-600 text-72 d-inline-flex'>
                 <i className='ph ph-gift' />
               </span>
-              <h6 className='my-28'>Fair Prices & Better Earnings</h6>
+              <h6 className='my-28'>Fresh from the Source</h6>
               <p className='text-gray-600 max-w-392 mx-auto'>
-                Sell your produce at competitive market rates without the extra cuts taken by middlemen.
-            More profit stays in your pocket.
+                Enjoy produce that comes directly from farmers, harvested to order, with no long storage times or unnecessary handling.
               </p>
             </div>
           </div>
@@ -28,10 +27,9 @@ const WhyBecomeSeller = () => {
               <span className='text-main-two-600 text-72 d-inline-flex'>
                 <i className='ph ph-credit-card' />
               </span>
-              <h6 className='my-28'>Flexible & Secure Payments</h6>
+              <h6 className='my-28'>Fair Prices, No Middlemen</h6>
               <p className='text-gray-600 max-w-392 mx-auto'>
-                Receive payments directly to your bank or mobile money account within days of delivery,
-            no delays, no hassle.
+                We connect you directly to the growers, so you get quality goods at competitive prices without the markups.
               </p>
             </div>
           </div>
@@ -40,10 +38,9 @@ const WhyBecomeSeller = () => {
               <span className='text-main-two-600 text-72 d-inline-flex'>
                 <i className='ph ph-chats' />
               </span>
-              <h6 className='my-28'>Dedicated Support</h6>
+              <h6 className='my-28'>Convenient & Reliable Delivery</h6>
               <p className='text-gray-600 max-w-392 mx-auto'>
-                Our team is here to help with onboarding, listing your products, and resolving issues
-            so you can focus on growing your farm.
+                Choose your delivery time and location, we’ll make sure your order arrives fresh, on time, and ready to use.
               </p>
             </div>
           </div>
@@ -53,4 +50,4 @@ const WhyBecomeSeller = () => {
   );
 };
 
-export default WhyBecomeSeller;
+export default WhyBecomeBuyer;

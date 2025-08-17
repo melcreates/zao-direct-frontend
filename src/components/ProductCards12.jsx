@@ -6,8 +6,8 @@ function ProductCards12({products}){
     const { addToCart } = useCart();
 
     return <div className="row gy-4 g-12">
-            {products.slice(0, 12).map((product)=>(
-                <div className="col-xxl-2 col-lg-3 col-sm-4 col-6">
+            {products.slice(0, 12).map((product,index)=>(
+                <div key={product.id || index} className="col-xxl-2 col-lg-3 col-sm-4 col-6">
                         <div className="product-card px-8 py-16 border border-gray-100 hover-border-main-600 rounded-16 position-relative transition-2">
                             <Link
                                 to="/cart"

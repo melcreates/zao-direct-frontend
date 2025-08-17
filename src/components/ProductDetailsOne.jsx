@@ -1,10 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { useCart } from '../helper/CartContext';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import { getCountdown } from '../helper/Countdown';
 
 const ProductDetailsOne = () => {
     const [timeLeft, setTimeLeft] = useState(getCountdown());
+    const { productId } = useParams(); // Get product ID from URL
+    const [product, setProduct] = useState(null);
+    const { addToCart } = useCart();
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/products/${productId}`);
+                setProduct(response.data.product);
+            } catch (err) {
+                console.error("Error fetching product:", err);
+            }
+        };
+        fetchProduct();
+    }, [productId]);
+
+   
+
+
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -69,7 +91,7 @@ const ProductDetailsOne = () => {
                             </div>
                             <div className="col-xl-6">
                                 <div className="product-details__content">
-                                    <h5 className="mb-12">Lay's Potato Chips Onion Flavored</h5>
+                                    <h5 className="mb-12">{product ? product.name : 'Loading...'}</h5>
                                     <div className="flex-align flex-wrap gap-12">
                                         <div className="flex-align gap-12 flex-wrap">
                                             <div className="flex-align gap-8">
@@ -104,14 +126,12 @@ const ProductDetailsOne = () => {
                                     </div>
                                     <span className="mt-32 pt-32 text-gray-700 border-top border-gray-100 d-block" />
                                     <p className="text-gray-700">
-                                        Vivamus adipiscing nisl ut dolor dignissim semper. Nulla luctus
-                                        malesuada tincidunt. Class aptent taciti sociosqu ad litora
-                                        torquent
+                                        {product ? product.description : 'Loading...'}
                                     </p>
                                     <div className="mt-32 flex-align flex-wrap gap-32">
                                         <div className="flex-align gap-8">
-                                            <h4 className="mb-0">$25.00</h4>
-                                            <span className="text-md text-gray-500">$38.00</span>
+                                            <h4 className="mb-0">KES {product ? product.price : 'Loading...'}</h4>
+                                            
                                         </div>
                                         <Link to="#" className="btn btn-main rounded-pill">
                                             Order on What'sApp
@@ -191,6 +211,7 @@ const ProductDetailsOne = () => {
                                                 </button>
                                             </div>
                                             <Link
+                                                onClick={() => addToCart(product)}
                                                 to="#"
                                                 className="btn btn-main rounded-pill flex-align d-inline-flex gap-8 px-48"
                                             >

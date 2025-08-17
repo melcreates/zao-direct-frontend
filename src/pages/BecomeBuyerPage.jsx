@@ -4,13 +4,14 @@ import ScrollToTop from "react-scroll-to-top";
 import Preloader from "../helper/Preloader";
 import HeaderOne from "../components/HeaderOne";
 import Breadcrumb from "../components/Breadcrumb";
-import WhyBecomeSeller from "../components/WhyBecomeSeller";
+import WhyBecomeBuyer from "../components/WhyBecomeBuyer";
 import CounterSection from "../components/CounterSection";
-import StepsSection from "../components/StepsSection";
+import BuyerStepsSection from "../components/BuyerStepsSection";
+import ShippingOne from "../components/ShippingOne";
 import FooterOne from "../components/FooterOne";
 import BottomFooter from "../components/BottomFooter";
 
-const BecomeSellerPage = () => {
+const BecomeBuyerPage = () => {
   return (
     <>
       {/* ColorInit */}
@@ -26,17 +27,19 @@ const BecomeSellerPage = () => {
       <HeaderOne category={true} />
 
       {/* Breadcrumb */}
-      <Breadcrumb title={"Become Farmer"} />
+      <Breadcrumb title={"Register Your Shop"} />
 
       {/* WhyBecomeSeller */}
-      <WhyBecomeSeller />
+      <WhyBecomeBuyer />
 
       {/* CounterSection */}
       <CounterSection />
 
       {/* StepsSection */}
-      <StepsSection />
+      <BuyerStepsSection />
 
+      {/* ShippingOne */}
+      <ShippingOne />
 
       {/* FooterOne */}
       <FooterOne />
@@ -47,4 +50,4 @@ const BecomeSellerPage = () => {
   );
 };
 
-export default BecomeSellerPage;
+export default BecomeBuyerPage;

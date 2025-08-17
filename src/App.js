@@ -1,8 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RouteScrollToTop from "./helper/RouteScrollToTop";
 import HomePageOne from "./pages/HomePageOne";
-import HomePageTwo from "./pages/HomePageTwo";
-import HomePageThree from "./pages/HomePageThree";
 import ShopPage from "./pages/ShopPage";
 import ProductDetailsPageOne from "./pages/ProductDetailsPageOne";
 import ProductDetailsPageTwo from "./pages/ProductDetailsPageTwo";
@@ -18,47 +16,52 @@ import VendorDetailsPage from "./pages/VendorDetailsPage";
 import VendorTwoPage from "./pages/VendorTwoPage";
 import VendorTwoDetailsPage from "./pages/VendorTwoDetailsPage";
 import BecomeSellerPage from "./pages/BecomeSellerPage";
+import BecomeBuyerPage from "./pages/BecomeBuyerPage";
 import WishlistPage from "./pages/WishlistPage";
 import { CartProvider } from "./helper/CartContext";
+import { UserProvider } from "./helper/UserContext";
 function App() {
   return (
-    <CartProvider>
-      <BrowserRouter>
-        <RouteScrollToTop />
-        <PhosphorIconInit />
+    <UserProvider>
+      <CartProvider>
+        <BrowserRouter>
+          <RouteScrollToTop />
+          <PhosphorIconInit />
 
-        <Routes>
-          <Route exact path='/' element={<HomePageOne />} />
-          <Route exact path='/shop' element={<ShopPage />} />
-          <Route
-            exact
-            path='/product-details'
-            element={<ProductDetailsPageOne />}
-          />
-          <Route
-            exact
-            path='/product-details-two'
-            element={<ProductDetailsPageTwo />}
-          />
-          <Route exact path='/cart' element={<CartPage />} />
-          <Route exact path='/checkout' element={<CheckoutPage />} />
-          <Route exact path='/become-seller' element={<BecomeSellerPage />} />
-          <Route exact path='/wishlist' element={<WishlistPage />} />
-          <Route exact path='/account' element={<AccountPage />} />
-          <Route exact path='/blog' element={<BlogPage />} />
-          <Route exact path='/blog-details' element={<BlogDetailsPage />} />
-          <Route exact path='/contact' element={<ContactPage />} />
-          <Route exact path='/vendor' element={<VendorPage />} />
-          <Route exact path='/vendor-details' element={<VendorDetailsPage />} />
-          <Route exact path='/vendor-two' element={<VendorTwoPage />} />
-          <Route
-            exact
-            path='/vendor-two-details'
-            element={<VendorTwoDetailsPage />}
-          />
-        </Routes>
-      </BrowserRouter>
-    </CartProvider>
+          <Routes>
+            <Route exact path='/' element={<HomePageOne />} />
+            <Route exact path='/shop' element={<ShopPage />} />
+            <Route
+              exact
+              path='/product-details/:productId'
+              element={<ProductDetailsPageOne />}
+            />
+            <Route
+              exact
+              path='/product-details-two'
+              element={<ProductDetailsPageTwo />}
+            />
+            <Route exact path='/cart' element={<CartPage />} />
+            <Route exact path='/checkout' element={<CheckoutPage />} />
+            <Route exact path='/become-farmer' element={<BecomeSellerPage />} />
+            <Route exact path='/become-buyer' element={<BecomeBuyerPage />} />
+            <Route exact path='/wishlist' element={<WishlistPage />} />
+            <Route exact path='/account' element={<AccountPage />} />
+            <Route exact path='/blog' element={<BlogPage />} />
+            <Route exact path='/blog-details' element={<BlogDetailsPage />} />
+            <Route exact path='/contact' element={<ContactPage />} />
+            <Route exact path='/vendor' element={<VendorPage />} />
+            <Route exact path='/vendor-details' element={<VendorDetailsPage />} />
+            <Route exact path='/vendor-two' element={<VendorTwoPage />} />
+            <Route
+              exact
+              path='/vendor-two-details'
+              element={<VendorTwoDetailsPage />}
+            />
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
+    </UserProvider>
   );
 }
 

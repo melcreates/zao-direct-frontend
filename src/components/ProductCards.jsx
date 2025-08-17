@@ -23,7 +23,7 @@ function ProductCards(){
 
   return <div className="row gy-4 g-12">
             {products.slice(0, 6).map((product,index)=>(
-                <div className="col-xxl-2 col-lg-3 col-sm-4 col-6">
+                <div key={product.id || index} className="col-xxl-2 col-lg-3 col-sm-4 col-6">
                         <div className="product-card px-8 py-16 border border-gray-100 hover-border-main-600 rounded-16 position-relative transition-2">
                             <Link
                                 to=" "
@@ -34,7 +34,7 @@ function ProductCards(){
                                     />
                             </Link>
                             <Link
-                                to="/product-details"
+                                to={`product-details/${product.id}`}
                                 className="product-card__thumb flex-center"
                             >
                                 <img src="assets/images/thumbs/product-img1.png" alt="" />

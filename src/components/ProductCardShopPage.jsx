@@ -7,9 +7,9 @@ const { addToCart } = useCart();
 
   return <div className={`list-grid-wrapper ${grid && "list-view"}`}>
     {products.map((product, index)=>(
-        <div className="product-card h-100 p-16 border border-gray-100 hover-border-main-600 rounded-16 position-relative transition-2">
+        <div key={product.id || index} className="product-card h-100 p-16 border border-gray-100 hover-border-main-600 rounded-16 position-relative transition-2">
             <Link
-                to="/product-details-two"
+                to="#"
                 className="product-card__thumb flex-center rounded-8 bg-gray-50 position-relative"
             >
                 <img
@@ -60,7 +60,7 @@ const { addToCart } = useCart();
                     </span>
                 </div>
                 <Link
-                    to="/cart"
+                    to="#"
                     className="product-card__cart btn bg-gray-50 text-heading hover-bg-main-600 hover-text-white py-11 px-24 rounded-8 flex-center gap-8 fw-medium"
                     tabIndex={0}
                     onClick={() => addToCart(product)}
