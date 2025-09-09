@@ -8,10 +8,11 @@ import BottomFooter from "../components/BottomFooter";
 import ShippingOne from "../components/ShippingOne";
 import Checkout from "../components/Checkout";
 import ScrollToTop from "react-scroll-to-top";
+import { useUser } from "../helper/UserContext";
 
 
 const CheckoutPage = () => {
-
+  const { user } = useUser();
 
 
   return (
@@ -26,7 +27,7 @@ const CheckoutPage = () => {
       <Preloader />
 
       {/* HeaderTwo */}
-      <HeaderOne category={true} />
+      <HeaderOne category={true} username={user?.user?.name}/>
 
       {/* Breadcrumb */}
       <Breadcrumb title={"Checkout"} />

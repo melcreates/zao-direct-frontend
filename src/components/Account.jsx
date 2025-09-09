@@ -1,11 +1,12 @@
 import React, {useState, useContext} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { UserContext } from "../helper/UserContext";
 
 
 
 const Account = () => {
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
     full_name: "",
@@ -28,7 +29,7 @@ const Account = () => {
         console.log("Submitting registration...")
         try {
             await axios.post("http://localhost:5000/register", formData);
-            alert("Registration successful");
+            navigate("/dashboard");
             setFormData({ ...formData, full_name: "" , email: "", phone_number: "", location: "", user_type: "", password: ""})
         } catch (err) {
             console.error(err);
@@ -42,7 +43,7 @@ const Account = () => {
         try{
             const res = await axios.post("http://localhost:5000/login", loginFormData);
             login(res.data.user, res.data.token); // store globally
-            alert("login successful");
+            navigate("/dashboard");
         }catch(err){
            console.error(err);
             alert("Login failed"); 

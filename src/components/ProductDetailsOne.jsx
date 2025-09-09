@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import { getCountdown } from '../helper/Countdown';
 
+
 const ProductDetailsOne = () => {
     const [timeLeft, setTimeLeft] = useState(getCountdown());
     const { productId } = useParams(); // Get product ID from URL

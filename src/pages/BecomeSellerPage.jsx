@@ -9,8 +9,10 @@ import CounterSection from "../components/CounterSection";
 import StepsSection from "../components/StepsSection";
 import FooterOne from "../components/FooterOne";
 import BottomFooter from "../components/BottomFooter";
+import { useUser } from "../helper/UserContext";
 
 const BecomeSellerPage = () => {
+  const { user } = useUser();
   return (
     <>
       {/* ColorInit */}
@@ -23,7 +25,7 @@ const BecomeSellerPage = () => {
       <Preloader />
 
       {/* HeaderTwo */}
-      <HeaderOne category={true} />
+      <HeaderOne category={true} username={user?.user?.name}/>
 
       {/* Breadcrumb */}
       <Breadcrumb title={"Become Farmer"} />
@@ -36,7 +38,6 @@ const BecomeSellerPage = () => {
 
       {/* StepsSection */}
       <StepsSection />
-
 
       {/* FooterOne */}
       <FooterOne />

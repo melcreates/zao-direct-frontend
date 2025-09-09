@@ -5,12 +5,12 @@ import FormCategoryDropDown from "./FormCategoryDropDown";
 import HeaderCategoryDropDown from "./HeaderCategoryDropDown";
 import SearchBar from "./SearchBar"; 
 import { useCart } from '../helper/CartContext';
-import { UserContext } from '../helper/UserContext';
+//import { useUser } from '../helper/UserContext';
 
 
 
-const HeaderOne = () => {
-  const { user } = useContext(UserContext);
+const HeaderOne = (props) => {
+  //const { user, loading } = useUser();
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
     window.onscroll = () => {
@@ -81,7 +81,6 @@ const HeaderOne = () => {
     try {
       const response = await fetch('https://ipapi.co/json/');
       const data = await response.json();
-      console.log(data.city, data.country_name); // Example: Nairobi, Kenya
       setLocation(`${data.city}, ${data.country_name}`);
     } catch (error) {
       console.error('Location fetch failed', error);
@@ -93,6 +92,7 @@ const HeaderOne = () => {
 
 
  const { cartItems, addToCart, removeFromCart, updateQuantity } = useCart();
+
 
   return (
     <>
@@ -501,37 +501,36 @@ const HeaderOne = () => {
                   </li>
                 </ul>
               </li>
-              {user ? 
-              <li className='border-right-item'>
-                <Link
-                  to='/account'
-                  className='text-white text-sm py-8 flex-align gap-6'
-                >
-                  <span className='icon text-md d-flex'>
-                    {" "}
-                    <i className='ph ph-user-circle' />{" "}
-                  </span>
-                  <span className='hover-text-decoration-underline'>
-                    {user.name}
-                  </span>
-                </Link>
-                </li>
-                : 
+              {props.username ? (
                 <li className='border-right-item'>
-                <Link
-                  to='/account'
-                  className='text-white text-sm py-8 flex-align gap-6'
-                >
-                  <span className='icon text-md d-flex'>
-                    {" "}
-                    <i className='ph ph-user-circle' />{" "}
-                  </span>
-                  <span className='hover-text-decoration-underline'>
-                    My Account
-                  </span>
-                </Link>
-              </li>
-                }
+                  <Link
+                    to='/dashboard'
+                    className='text-white text-sm py-8 flex-align gap-6'
+                  >
+                    <span className='icon text-md d-flex'>
+                      <i className='ph ph-user-circle' />
+                    </span>
+                    <span className='hover-text-decoration-underline'>
+                      {props.username}
+                    </span>
+                  </Link>
+                </li>
+              ) : (
+                <li className='border-right-item'>
+                  <Link
+                    to='/account'
+                    className='text-white text-sm py-8 flex-align gap-6'
+                  >
+                    <span className='icon text-md d-flex'>
+                      <i className='ph ph-user-circle' />
+                    </span>
+                    <span className='hover-text-decoration-underline'>
+                      My Account
+                    </span>
+                  </Link>
+                </li>
+              )}
+
               
             </ul>
           </div>

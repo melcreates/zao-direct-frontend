@@ -8,11 +8,11 @@ import BottomFooter from "../components/BottomFooter";
 import CartSection from "../components/CartSection";
 import ShippingOne from "../components/ShippingOne";
 import ScrollToTop from "react-scroll-to-top";
-
+import { useUser } from "../helper/UserContext";
 
 
 const CartPage = () => {
-
+  const { user } = useUser();
   return (
     <>
       {/* ColorInit */}
@@ -25,7 +25,7 @@ const CartPage = () => {
       <Preloader />
 
       {/* HeaderTwo */}
-      <HeaderOne category={true} />
+      <HeaderOne category={true} username={user?.user?.name}/>
 
       {/* Breadcrumb */}
       <Breadcrumb title={"Cart"} />

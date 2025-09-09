@@ -8,8 +8,10 @@ import VendorTwoDetails from "../components/VendorTwoDetails";
 import ShippingOne from "../components/ShippingOne";
 import FooterTwo from "../components/FooterTwo";
 import BottomFooter from "../components/BottomFooter";
+import { useUser } from "../helper/UserContext";
 
 const VendorTwoDetailsPage = () => {
+  const { user } = useUser();
   return (
     <>
       {/* ColorInit */}
@@ -22,7 +24,7 @@ const VendorTwoDetailsPage = () => {
       <Preloader />
 
       {/* HeaderTwo */}
-      <HeaderTwo category={true} />
+      <HeaderTwo category={true} username={user?.user?.name}/>
 
       {/* Breadcrumb */}
       <Breadcrumb title={"Vendor Details"} />

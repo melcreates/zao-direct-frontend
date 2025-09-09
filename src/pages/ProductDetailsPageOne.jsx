@@ -10,9 +10,10 @@ import BottomFooter from "../components/BottomFooter";
 import BreadcrumbTwo from './../components/BreadcrumbTwo';
 import ScrollToTop from "react-scroll-to-top";
 import ColorInit from "../helper/ColorInit";
+import { useUser } from "../helper/UserContext";
 
 const ProductDetailsPageOne = () => {
-
+  const { user } = useUser();
   return (
     <>
 
@@ -26,7 +27,7 @@ const ProductDetailsPageOne = () => {
       <ScrollToTop smooth color="#299E60" />
 
       {/* HeaderOne */}
-      <HeaderOne />
+      <HeaderOne username={user?.user?.name}/>
 
       {/* Breadcrumb */}
       <BreadcrumbTwo title={"Product Details"} />

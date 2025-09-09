@@ -8,7 +8,9 @@ import BottomFooter from "../components/BottomFooter";
 import ShippingOne from "../components/ShippingOne";
 import Contact from "../components/Contact";
 import ScrollToTop from "react-scroll-to-top";
+import { useUser } from "../helper/UserContext";
 const ContactPage = () => {
+  const { user } = useUser();
   return (
     <>
       {/* ColorInit */}
@@ -21,7 +23,7 @@ const ContactPage = () => {
       <Preloader />
 
       {/* HeaderTwo */}
-      <HeaderOne category={true} />
+      <HeaderOne category={true} username={user?.user?.name}/>
 
       {/* Breadcrumb */}
       <Breadcrumb title={"Contact"} />

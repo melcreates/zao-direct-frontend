@@ -7,9 +7,10 @@ import ShippingOne from "../components/ShippingOne";
 import FooterOne from "../components/FooterOne";
 import ColorInit from "../helper/ColorInit";
 import ScrollToTop from "react-scroll-to-top";
+import { useUser } from "../helper/UserContext";
 
 const ShopPage = () => {
-
+  const { user } = useUser();
   return (
     <>
       {/* ColorInit */}
@@ -22,7 +23,7 @@ const ShopPage = () => {
       <Preloader />
 
       {/* HeaderOne */}
-      <HeaderOne category={true} />
+      <HeaderOne category={true} username={user?.user?.name} />
 
       {/* Breadcrumb */}
       <Breadcrumb title={"Shop"} />

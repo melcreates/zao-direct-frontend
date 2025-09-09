@@ -6,11 +6,12 @@ import HeaderOne from "../components/HeaderOne";
 import BreadcrumbThree from "../components/BreadcrumbThree";
 import VendorsList from "../components/VendorsList";
 import ShippingOne from "../components/ShippingOne";
-import NewsletterOne from "../components/NewsletterOne";
 import FooterOne from "../components/FooterOne";
 import BottomFooter from "../components/BottomFooter";
+import { useUser } from "../helper/UserContext";
 
 const VendorPage = () => {
+  const { user } = useUser();
   return (
     <>
       {/* Preloader */}
@@ -23,7 +24,7 @@ const VendorPage = () => {
       <ScrollToTop smooth color='#299E60' />
 
       {/* HeaderOne */}
-      <HeaderOne />
+      <HeaderOne username={user?.user?.name} />
 
       {/* BreadcrumbThree */}
       <BreadcrumbThree title={"Farmers List"} />

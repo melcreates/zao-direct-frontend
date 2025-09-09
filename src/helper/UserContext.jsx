@@ -1,44 +1,63 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
-// 1️⃣ Create the context (the "box" that will hold the data)
 export const UserContext = createContext();
 
-// 2️⃣ Create the provider component (this wraps your app)
 export const UserProvider = ({ children }) => {
-  // Global state for the user
-  const [user, setUser] = useState(null);
-
-  // 3️⃣ Load user from localStorage when the app starts
-  useEffect(() => {
+  const location = useLocation();   // 👈 detects route change
+  const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem("user");
-    if (storedUser && storedUser !== "undefined") {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch (error) {
-        console.error("Error parsing user from localStorage:", error);
-        localStorage.removeItem("user");
-      }
-    }
-  }, []);
+    return storedUser && storedUser !== "undefined"
+      ? JSON.parse(storedUser)
+      : null;
+  });
+  const [loading, setLoading] = useState(true);
 
-  // 4️⃣ Function to handle login
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      const checkUser = async () => {
+        try {
+          console.log("🔍 Calling /me with token:", token);
+          const res = await axios.get("/me");
+          setUser(res.data);
+          localStorage.setItem("user", JSON.stringify(res.data));
+        } catch (err) {
+          console.log("Token invalid/expired:", err.response?.data);
+          logout();
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      checkUser();
+    } else {
+      setLoading(false);
+    }
+  }, [location.pathname]);
+
   const login = (userData, token) => {
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
   };
 
-  // 5️⃣ Function to handle logout
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
   };
 
-  // 6️⃣ Provide the values to all children
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout, loading }}>
       {children}
     </UserContext.Provider>
   );
 };
+
+export const useUser = () => useContext(UserContext);
+

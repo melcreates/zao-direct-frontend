@@ -10,8 +10,10 @@ import BuyerStepsSection from "../components/BuyerStepsSection";
 import ShippingOne from "../components/ShippingOne";
 import FooterOne from "../components/FooterOne";
 import BottomFooter from "../components/BottomFooter";
+import { useUser } from "../helper/UserContext";
 
 const BecomeBuyerPage = () => {
+  const { user } = useUser();
   return (
     <>
       {/* ColorInit */}
@@ -24,7 +26,7 @@ const BecomeBuyerPage = () => {
       <Preloader />
 
       {/* HeaderTwo */}
-      <HeaderOne category={true} />
+      <HeaderOne category={true} username={user?.user?.name}/>
 
       {/* Breadcrumb */}
       <Breadcrumb title={"Register Your Shop"} />

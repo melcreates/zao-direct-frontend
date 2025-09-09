@@ -8,8 +8,10 @@ import VendorsListTwo from "../components/VendorsListTwo";
 import NewsletterOne from "../components/NewsletterOne";
 import FooterOne from "../components/FooterOne";
 import BottomFooter from "../components/BottomFooter";
+import { useUser } from "../helper/UserContext";
 
 const VendorDetailsPage = () => {
+  const { user } = useUser();
   return (
     <>
       {/* Preloader */}
@@ -22,7 +24,7 @@ const VendorDetailsPage = () => {
       <ScrollToTop smooth color='#299E60' />
 
       {/* HeaderOne */}
-      <HeaderOne />
+      <HeaderOne username={user?.user?.name}/>
 
       {/* BreadcrumbThree */}
       <BreadcrumbThree title={"Vendor Details"} />
