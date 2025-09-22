@@ -13,7 +13,9 @@ import BottomFooter from "../components/BottomFooter";
 import ScrollToTop from "react-scroll-to-top";
 import ColorInit from "../helper/ColorInit";
 import { useUser } from "../helper/UserContext";
+
 const HomePageOne = () => {
+
   const { user } = useUser();
   return (
 
@@ -29,7 +31,7 @@ const HomePageOne = () => {
       <ColorInit color={false} />
 
       {/* HeaderOne */}
-      <HeaderOne username={user?.user?.name}/>
+      <HeaderOne username={user?.user?.name} />
 
       {/* BannerOne */}
       <BannerOne />

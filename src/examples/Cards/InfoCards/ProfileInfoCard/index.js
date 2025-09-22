@@ -12,7 +12,8 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
+import React, { useState } from "react";
+import axios from "axios";
 // react-routers components
 import { Link } from "react-router-dom";
 
@@ -33,11 +34,37 @@ import MDTypography from "../../../../components/MDTypography";
 import colors from "../../../../themeAssets/theme/base/colors";
 import typography from "../../../../themeAssets/theme/base/typography";
 
-function ProfileInfoCard({ title, description, info, social, action, shadow }) {
+import { useUser } from "../../../../helper/UserContext"; // if you store user globally
+
+function ProfileInfoCard({ title, description: initialDescription, info, social, action, shadow }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editableDescription, setEditableDescription] = useState(initialDescription);
   const labels = [];
   const values = [];
   const { socialMediaColors } = colors;
   const { size } = typography;
+  const { setUser } = useUser(); // assuming your context has a setter
+  const [description, setDescription] = useState("");
+
+
+  const handleSave = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.put(
+        "http://localhost:5000/description",
+        { description: editableDescription },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      setDescription(response.data.description); // ✅ use response not res
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   // Convert this form `objectKey` of the object key in to this `object key`
   Object.keys(info).forEach((el) => {
@@ -91,17 +118,40 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
           {title}
         </MDTypography>
         <MDTypography component={Link} to={action.route} variant="body2" color="secondary">
-          <Tooltip title={action.tooltip} placement="top">
-            <Icon>edit</Icon>
+          <Tooltip title={isEditing ? "Save" : action.tooltip} placement="top">
+            <Icon
+              sx={{ cursor: "pointer" }}
+              onClick={() => {
+                if (isEditing) handleSave();
+                setIsEditing(!isEditing);
+              }}
+            >
+              {isEditing ? "check" : "edit"}
+            </Icon>
           </Tooltip>
         </MDTypography>
       </MDBox>
       <MDBox p={2}>
         <MDBox mb={2} lineHeight={1}>
-          <MDTypography variant="button" color="text" fontWeight="light">
-            {description}
-          </MDTypography>
+          {isEditing ? (
+            <textarea
+              style={{
+                width: "100%",
+                padding: "8px",
+                borderRadius: "8px",
+                border: "1px solid #ccc",
+              }}
+              rows={3}
+              value={editableDescription}
+              onChange={(e) => setEditableDescription(e.target.value)}
+            />
+          ) : (
+            <MDTypography variant="button" color="text" fontWeight="light">
+              {editableDescription}
+            </MDTypography>
+          )}
         </MDBox>
+
         <MDBox opacity={0.3}>
           <Divider />
         </MDBox>

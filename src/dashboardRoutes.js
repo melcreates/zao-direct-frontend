@@ -1,4 +1,5 @@
 // src/dashboardRoutes.js
+import Dashboard from "./pages/DashboardHome";
 import Tables from "./layouts/tables";
 import Billing from "./layouts/billing";
 import RTL from "./layouts/rtl";
@@ -9,6 +10,14 @@ import Profile from "./layouts/profile";
 import Icon from "@mui/material/Icon";
 
 const dashboardRoutes = [
+  {
+    type: "collapse",
+    name: "Dashboard",
+    key: "dashboard",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "",
+    component: <Dashboard />,
+  },
   {
     type: "collapse",
     name: "Tables",

@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { UserContext } from "../helper/UserContext";
@@ -9,12 +9,12 @@ const Account = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-    full_name: "",
-    email: "",
-    phone_number: "",
-    location: "",
-    user_type: "",
-    password: ""
+        full_name: "",
+        email: "",
+        phone_number: "",
+        location: "",
+        user_type: "",
+        password: ""
     });
 
     const [loginFormData, setLoginFormData] = useState({
@@ -30,23 +30,23 @@ const Account = () => {
         try {
             await axios.post("http://localhost:5000/register", formData);
             navigate("/dashboard");
-            setFormData({ ...formData, full_name: "" , email: "", phone_number: "", location: "", user_type: "", password: ""})
+            setFormData({ ...formData, full_name: "", email: "", phone_number: "", location: "", user_type: "", password: "" })
         } catch (err) {
             console.error(err);
             alert("Registration failed");
-            setFormData({ ...formData, full_name: "" , email: "", phone_number: "", location: "", user_type: "", password: ""})
+            setFormData({ ...formData, full_name: "", email: "", phone_number: "", location: "", user_type: "", password: "" })
         }
     };
 
-    const handleLogin = async (e) =>{
+    const handleLogin = async (e) => {
         e.preventDefault();
-        try{
+        try {
             const res = await axios.post("http://localhost:5000/login", loginFormData);
             login(res.data.user, res.data.token); // store globally
             navigate("/dashboard");
-        }catch(err){
-           console.error(err);
-            alert("Login failed"); 
+        } catch (err) {
+            console.error(err);
+            alert("Login failed");
         }
     }
 
@@ -72,7 +72,7 @@ const Account = () => {
                                         id="email"
                                         placeholder="Full Name"
                                         value={loginFormData.email}
-                                        onChange={(e)=>{setLoginFormData({...loginFormData, email: e.target.value})}}
+                                        onChange={(e) => { setLoginFormData({ ...loginFormData, email: e.target.value }) }}
                                     />
                                 </div>
                                 <div className="mb-24">
@@ -90,7 +90,7 @@ const Account = () => {
                                             id="password"
                                             placeholder="Enter Password"
                                             value={loginFormData.password}
-                                            onChange={(e)=>{setLoginFormData({...loginFormData, password: e.target.value})}}
+                                            onChange={(e) => { setLoginFormData({ ...loginFormData, password: e.target.value }) }}
                                         />
                                         <span
                                             className="toggle-password position-absolute top-50 inset-inline-end-0 me-16 translate-middle-y cursor-pointer ph ph-eye-slash"
@@ -194,31 +194,31 @@ const Account = () => {
                                     />
                                 </div>
                                 <div className="mb-24">
-                                <label className="text-neutral-900 text-lg mb-8 fw-medium">
-                                    User Type <span className="text-danger">*</span>
-                                </label>
-                                <div className="d-flex gap-10">
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="user_type"
-                                            value="farmer"
-                                            checked={formData.user_type === "farmer"}
-                                            onChange={(e) => setFormData({ ...formData, user_type: e.target.value })}
-                                        /> Farmer
+                                    <label className="text-neutral-900 text-lg mb-8 fw-medium">
+                                        User Type <span className="text-danger">*</span>
                                     </label>
-                                    
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="user_type"
-                                            value="buyer"
-                                            checked={formData.user_type === "buyer"}
-                                            onChange={(e) => setFormData({ ...formData, user_type: e.target.value })}
-                                        /> Buyer
-                                    </label>
+                                    <div className="d-flex gap-10">
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="user_type"
+                                                value="Farmer"
+                                                checked={formData.user_type === "Farmer"}
+                                                onChange={(e) => setFormData({ ...formData, user_type: e.target.value })}
+                                            /> Farmer
+                                        </label>
+
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="user_type"
+                                                value="Buyer"
+                                                checked={formData.user_type === "Buyer"}
+                                                onChange={(e) => setFormData({ ...formData, user_type: e.target.value })}
+                                            /> Buyer
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
                                 <div className="mb-24">
                                     <label
                                         htmlFor="enter-password"

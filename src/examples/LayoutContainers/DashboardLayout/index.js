@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, Outlet } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import Icon from "@mui/material/Icon";
 
@@ -69,7 +69,7 @@ function DashboardLayout({ children }) {
             : brandWhite
         }
         brandName="ZaoDirect Dashboard"
-        routes={dashboardRoutes}   
+        routes={dashboardRoutes}
         // ✅ FIXED: use dashboardRoutes
         onMouseEnter={handleOnMouseEnter}
         onMouseLeave={handleOnMouseLeave}
@@ -109,21 +109,22 @@ function DashboardLayout({ children }) {
       {/* Main dashboard content */}
       <MDBox
         sx={({ breakpoints, transitions, functions: { pxToRem } }) => ({
-          p: 3,
+          flex: 1,
+          mt: 3, // margin-top instead of extra padding
           position: "relative",
-
-          [breakpoints.up("xl")]: {
-            marginLeft: miniSidenav ? pxToRem(120) : pxToRem(274),
-            transition: transitions.create(["margin-left", "margin-right"], {
-              easing: transitions.easing.easeInOut,
-              duration: transitions.duration.standard,
-            }),
+          transition: transitions.create(["margin-left", "margin-right"], {
+            easing: transitions.easing.easeInOut,
+            duration: transitions.duration.standard,
+          }),
+          marginLeft: miniSidenav ? pxToRem(30) : pxToRem(150), // always apply, not only xl
+          [breakpoints.down("lg")]: {
+            marginLeft: pxToRem(0), // make sidenav smaller for tablets/mobiles
           },
         })}
       >
         {children}
-        <Outlet />
       </MDBox>
+
     </>
   );
 }

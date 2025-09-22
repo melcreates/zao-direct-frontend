@@ -51,12 +51,18 @@ import team2 from "../../themeAssets/images/team-2.jpg";
 import team3 from "../../themeAssets/images/team-3.jpg";
 import team4 from "../../themeAssets/images/team-4.jpg";
 
+//user Context
+
+import { useUser } from "../../helper/UserContext";
+
 function Overview() {
+  const { user } = useUser();
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox mb={2} />
-      <Header>ets
+      <Header>
         <MDBox mt={5} mb={3}>
           <Grid container spacing={1}>
             <Grid item xs={12} md={6} xl={4}>
@@ -66,12 +72,12 @@ function Overview() {
               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
               <ProfileInfoCard
                 title="profile information"
-                description="Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
+                description={user?.user?.description}
                 info={{
-                  fullName: "Alec M. Thompson",
-                  mobile: "(44) 123 1234 123",
-                  email: "alecthompson@mail.com",
-                  location: "USA",
+                  fullName: user?.user?.name || "N/A",
+                  mobile: user?.user?.phone || "N/A",
+                  email: user?.user?.email || "N/A",
+                  location: user?.user?.location || "N/A"
                 }}
                 social={[
                   {
@@ -100,15 +106,10 @@ function Overview() {
             </Grid>
           </Grid>
         </MDBox>
-        <MDBox pt={2} px={2} lineHeight={1.25}>
+        <MDBox pt={2} px={2} pb={2} lineHeight={1.25}>
           <MDTypography variant="h6" fontWeight="medium">
-            Projects
+            Products
           </MDTypography>
-          <MDBox mb={1}>
-            <MDTypography variant="button" color="text">
-              Architects design houses
-            </MDTypography>
-          </MDBox>
         </MDBox>
         <MDBox p={2}>
           <Grid container spacing={6}>

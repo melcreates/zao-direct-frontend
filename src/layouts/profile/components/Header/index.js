@@ -38,7 +38,12 @@ import breakpoints from "../../../../themeAssets/theme/base/breakpoints";
 import burceMars from "../../../../themeAssets/images/bruce-mars.jpg";
 import backgroundImage from "../../../../themeAssets/images/bg-profile.jpeg";
 
+//user
+
+import { useUser } from "../../../../helper/UserContext";
+
 function Header({ children }) {
+  const { user } = useUser();
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
   const [tabValue, setTabValue] = useState(0);
 
@@ -99,10 +104,10 @@ function Header({ children }) {
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
               <MDTypography variant="h5" fontWeight="medium">
-                Richard Davis
+                {user?.user.name}
               </MDTypography>
               <MDTypography variant="button" color="text" fontWeight="regular">
-                CEO / Co-Founder
+                {user?.user.type}
               </MDTypography>
             </MDBox>
           </Grid>

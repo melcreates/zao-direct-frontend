@@ -1,10 +1,6 @@
+// src/App.js
 import { useState, useEffect, useMemo } from "react";
-import {
-  Route,
-  Routes,
-  useLocation,
-  Outlet
-} from "react-router-dom";
+import { Route, Routes, useLocation, Outlet } from "react-router-dom";
 import RouteScrollToTop from "./helper/RouteScrollToTop";
 import HomePageOne from "./pages/HomePageOne";
 import ShopPage from "./pages/ShopPage";
@@ -22,25 +18,21 @@ import { CartProvider } from "./helper/CartContext";
 import { UserProvider } from "./helper/UserContext";
 import ProtectedRoute from "./helper/ProtectedRoute";
 import PublicLayout from "./layouts/public";
-import DashboardLayout from "./layouts/dashboard";
+
+// ---- IMPORTANT IMPORT CHANGES ----
+// Dashboard page (the actual Dashboard content with charts/stats)
+import DashboardPage from "./layouts/dashboard";
+// Dashboard layout wrapper (sidenav, navbar, footer, content area that renders <Outlet />)
+import DashboardLayout from "./examples/LayoutContainers/DashboardLayout";
+import dashboardRoutes from "./dashboardRoutes";
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Icon from "@mui/material/Icon";
-
-// Material Dashboard 2 React components
-import MDBox from "./components/MDBox";
-
-// Material Dashboard 2 React example components
-import Sidenav from "./examples/Sidenav";
-import Configurator from "./examples/Configurator";
 
 // Material Dashboard 2 React themes
 import theme from "./themeAssets/theme";
 import themeRTL from "./themeAssets/theme/theme-rtl";
-
-// Material Dashboard 2 React Dark Mode themes
 import themeDark from "./themeAssets/theme-dark";
 import themeDarkRTL from "./themeAssets/theme-dark/theme-rtl";
 
@@ -49,24 +41,19 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
-// Material Dashboard 2 React routes
+// Material Dashboard 2 React routes (public)
 import routes from "./routes";
 
 // Material Dashboard 2 React contexts
-import {
-  useMaterialUIController,
-} from "./context";
-
+import { useMaterialUIController } from "./context";
 
 function AppContent() {
   const [controller] = useMaterialUIController();
-  const {
-    direction,
-    darkMode,
-  } = controller;
+  const { direction, darkMode } = controller;
 
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
+
   // Cache for RTL
   useMemo(() => {
     const cacheRtl = createCache({
@@ -75,8 +62,6 @@ function AppContent() {
     });
     setRtlCache(cacheRtl);
   }, []);
-
-
 
   // Set direction
   useEffect(() => {
@@ -112,7 +97,8 @@ function AppContent() {
         <CartProvider>
           <RouteScrollToTop />
           <PhosphorIconInit />
-          <Routes> {/* Public routes */}
+          <Routes>
+            {/* Public routes - wrapped in PublicLayout */}
             <Route element={<PublicLayout />}>
               <Route path="/" element={<HomePageOne />} />
               <Route path="/shop" element={<ShopPage />} />
@@ -124,23 +110,48 @@ function AppContent() {
               <Route path="/account" element={<AccountPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/vendor" element={<VendorPage />} />
-              <Route path="/vendor-details" element={<VendorDetailsPage />} /> {getRoutes(routes)}
-            </Route> {/* Protected dashboard parent */}
-            <Route path="/dashboard/*" element={<ProtectedRoute> {direction === "rtl" ? (
-              <CacheProvider value={rtlCache}>
-                <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
-                  <Outlet />
-                </ThemeProvider>
-              </CacheProvider>) : (
-              <ThemeProvider theme={darkMode ? themeDark : theme}>
-                <Outlet />
-              </ThemeProvider>)}
-            </ProtectedRoute>} >
-              {routes.map((route) =>
-                route.route && route.route.startsWith("/dashboard") &&
-                  route.key !== "sign-in" && route.key !== "sign-up" ? (
-                  <Route key={route.key} path={route.route.replace("/dashboard", "")} element={route.component} />) : null)}
-            </Route> {/* Fallback */} <Route path="*" element={<HomePageOne />} />
+              <Route path="/vendor-details" element={<VendorDetailsPage />} />
+              {getRoutes(routes)}
+            </Route>
+
+            {/* Protected dashboard parent - use DashboardLayout (wrapper) here */}
+            <Route
+              path="/dashboard/*"
+              element={
+                <ProtectedRoute>
+                  {direction === "rtl" ? (
+                    <CacheProvider value={rtlCache}>
+                      <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
+                        <DashboardLayout>
+                          <Outlet />
+                        </DashboardLayout>
+                      </ThemeProvider>
+                    </CacheProvider>
+                  ) : (
+                    <ThemeProvider theme={darkMode ? themeDark : theme}>
+                      <DashboardLayout>
+                        <Outlet />
+                      </DashboardLayout>
+                    </ThemeProvider>
+                  )}
+                </ProtectedRoute>
+              }
+            >
+              {/* Default dashboard landing page (when path is exactly /dashboard) */}
+              <Route index element={<DashboardPage />} />
+
+              {/* Dashboard child pages (tables, billing, profile, etc.) */}
+              {dashboardRoutes.map((route) => (
+                <Route
+                  key={route.key}
+                  path={route.route.replace("/dashboard/", "")}
+                  element={route.component}
+                />
+              ))}
+            </Route>
+
+            {/* Fallback */}
+            <Route path="*" element={<HomePageOne />} />
           </Routes>
         </CartProvider>
       </UserProvider>
