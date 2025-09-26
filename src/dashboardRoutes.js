@@ -3,7 +3,7 @@ import Dashboard from "./pages/DashboardHome";
 import Tables from "./layouts/tables";
 import Billing from "./layouts/billing";
 import RTL from "./layouts/rtl";
-import Notifications from "./layouts/notifications";
+import Messages from "./layouts/notifications";
 import Profile from "./layouts/profile";
 
 // @mui icons
@@ -44,11 +44,11 @@ const dashboardRoutes = [
   },
   {
     type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/dashboard/notifications",
-    component: <Notifications />,
+    name: "Messages",
+    key: "Messages",
+    icon: <Icon fontSize="small">Messages</Icon>,
+    route: "/dashboard/messages",
+    component: <Messages />,
   },
   {
     type: "collapse",

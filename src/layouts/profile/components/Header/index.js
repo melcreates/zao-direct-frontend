@@ -35,8 +35,8 @@ import MDAvatar from "../../../../components/MDAvatar";
 import breakpoints from "../../../../themeAssets/theme/base/breakpoints";
 
 // Images
-import burceMars from "../../../../themeAssets/images/bruce-mars.jpg";
-import backgroundImage from "../../../../themeAssets/images/bg-profile.jpeg";
+import profilepic from "../../../../themeAssets/images/profilepic.png";
+import backgroundImage from "../../../../themeAssets/images/bg-profile.png";
 
 //user
 
@@ -80,8 +80,8 @@ function Header({ children }) {
         sx={{
           backgroundImage: ({ functions: { rgba, linearGradient }, palette: { gradients } }) =>
             `${linearGradient(
-              rgba(gradients.info.main, 0.6),
-              rgba(gradients.info.state, 0.6)
+              rgba(gradients.info.main, 0.0),
+              rgba(gradients.info.state, 0.0)
             )}, url(${backgroundImage})`,
           backgroundSize: "cover",
           backgroundPosition: "50%",
@@ -99,7 +99,7 @@ function Header({ children }) {
       >
         <Grid container spacing={3} alignItems="center">
           <Grid item>
-            <MDAvatar src={burceMars} alt="profile-image" size="xl" shadow="sm" />
+            <MDAvatar src={user?.user.profilepic || profilepic} alt="profile-image" size="xl" shadow="sm" />
           </Grid>
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>

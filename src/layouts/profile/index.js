@@ -12,7 +12,8 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
@@ -38,14 +39,10 @@ import DefaultProjectCard from "../../examples/Cards/ProjectCards/DefaultProject
 import Header from "./components/Header";
 import PlatformSettings from "./components/PlatformSettings";
 
-// Data
-import profilesListData from "./data/profilesListData";
+
 
 // Images
-import homeDecor1 from "../../themeAssets/images/home-decor-1.jpg";
-import homeDecor2 from "../../themeAssets/images/home-decor-2.jpg";
-import homeDecor3 from "../../themeAssets/images/home-decor-3.jpg";
-import homeDecor4 from "../../themeAssets/images/home-decor-4.jpeg";
+import defaultproductpic from "../../themeAssets/images/defaultproductpic.png";
 import team1 from "../../themeAssets/images/team-1.jpg";
 import team2 from "../../themeAssets/images/team-2.jpg";
 import team3 from "../../themeAssets/images/team-3.jpg";
@@ -55,8 +52,24 @@ import team4 from "../../themeAssets/images/team-4.jpg";
 
 import { useUser } from "../../helper/UserContext";
 
+
+
 function Overview() {
   const { user } = useUser();
+  const [products, setProducts] = useState([]);
+
+  // Fetch products
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/products/${user.user.id}`);
+        setProducts(res.data?.products || []);
+      } catch (err) {
+        console.error('Error fetching products', err);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   return (
     <DashboardLayout>
@@ -102,7 +115,7 @@ function Overview() {
               <Divider orientation="vertical" sx={{ mx: 0 }} />
             </Grid>
             <Grid item xs={12} xl={4}>
-              <ProfilesList title="conversations" profiles={profilesListData} shadow={false} />
+              <ProfilesList title="conversations" shadow={false} />
             </Grid>
           </Grid>
         </MDBox>
@@ -113,86 +126,35 @@ function Overview() {
         </MDBox>
         <MDBox p={2}>
           <Grid container spacing={6}>
-            <Grid item xs={12} md={6} xl={3}>
-              <DefaultProjectCard
-                image={homeDecor1}
-                label="project #2"
-                title="modern"
-                description="As Uber works through a huge amount of internal management turmoil."
-                action={{
-                  type: "internal",
-                  route: "/pages/profile/profile-overview",
-                  color: "info",
-                  label: "view project",
-                }}
-                authors={[
-                  { image: team1, name: "Elena Morison" },
-                  { image: team2, name: "Ryan Milly" },
-                  { image: team3, name: "Nick Daniel" },
-                  { image: team4, name: "Peterson" },
-                ]}
-              />
-            </Grid>
-            <Grid item xs={12} md={6} xl={3}>
-              <DefaultProjectCard
-                image={homeDecor2}
-                label="project #1"
-                title="scandinavian"
-                description="Music is something that everyone has their own specific opinion about."
-                action={{
-                  type: "internal",
-                  route: "/pages/profile/profile-overview",
-                  color: "info",
-                  label: "view project",
-                }}
-                authors={[
-                  { image: team3, name: "Nick Daniel" },
-                  { image: team4, name: "Peterson" },
-                  { image: team1, name: "Elena Morison" },
-                  { image: team2, name: "Ryan Milly" },
-                ]}
-              />
-            </Grid>
-            <Grid item xs={12} md={6} xl={3}>
-              <DefaultProjectCard
-                image={homeDecor3}
-                label="project #3"
-                title="minimalist"
-                description="Different people have different taste, and various types of music."
-                action={{
-                  type: "internal",
-                  route: "/pages/profile/profile-overview",
-                  color: "info",
-                  label: "view project",
-                }}
-                authors={[
-                  { image: team4, name: "Peterson" },
-                  { image: team3, name: "Nick Daniel" },
-                  { image: team2, name: "Ryan Milly" },
-                  { image: team1, name: "Elena Morison" },
-                ]}
-              />
-            </Grid>
-            <Grid item xs={12} md={6} xl={3}>
-              <DefaultProjectCard
-                image={homeDecor4}
-                label="project #4"
-                title="gothic"
-                description="Why would anyone pick blue over pink? Pink is obviously a better color."
-                action={{
-                  type: "internal",
-                  route: "/pages/profile/profile-overview",
-                  color: "info",
-                  label: "view project",
-                }}
-                authors={[
-                  { image: team4, name: "Peterson" },
-                  { image: team3, name: "Nick Daniel" },
-                  { image: team2, name: "Ryan Milly" },
-                  { image: team1, name: "Elena Morison" },
-                ]}
-              />
-            </Grid>
+            {products.length > 0 ? (
+              products.slice(0, 4).map((product, index) => (
+                <Grid item xs={12} md={6} xl={3} key={product.id || index}>
+                  <DefaultProjectCard
+                    image={product.image_url || defaultproductpic}
+                    label={`product ${index + 1}`}
+                    title={product.name}
+                    description={product.description}
+                    action={{
+                      type: "internal",
+                      route: "/pages/profile/profile-overview",
+                      color: "info",
+                      label: "view product",
+                    }}
+                    authors={[
+                      { image: team1, name: "Elena Morison" },
+                      { image: team2, name: "Ryan Milly" },
+                      { image: team3, name: "Nick Daniel" },
+                      { image: team4, name: "Peterson" },
+                    ]}
+                  />
+                </Grid>
+              ))
+            ) : (
+              <Grid item xs={12} md={6} xl={3} >
+                <p>No Products Added.</p>
+              </Grid>
+            )}
+
           </Grid>
         </MDBox>
       </Header>
