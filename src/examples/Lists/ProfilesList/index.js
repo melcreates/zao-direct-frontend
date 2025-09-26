@@ -55,7 +55,7 @@ function ProfilesList({ title, shadow }) {
           description: chat.text,
           action: {
             type: "internal",
-            route: `/dashboard/messages/${chat.sender_id === user.user.id ? chat.receiver_id : chat.sender_id}`,
+            route: `/dashboard/messages`,
             color: "info",
             label: "reply",
           },
