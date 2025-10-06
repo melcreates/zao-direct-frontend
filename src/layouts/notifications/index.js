@@ -12,7 +12,7 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import {
   Box,
   Typography,
@@ -55,37 +55,20 @@ import DashboardLayout from "../../examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "../../examples/Navbars/DashboardNavbar";
 import Footer from "../../examples/Footer";
 
-function Notifications() {
+import { useUser } from "../../helper/UserContext";
+import axios from "axios";
 
-  const [contacts, setContacts] = useState([
-    {
-      id: 1,
-      name: "John Doe",
-      avatar: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61",
-      lastMessage: "Hey, how are you?",
-      online: true,
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-      lastMessage: "Can we meet tomorrow?",
-      online: false,
-    },
-    {
-      id: 3,
-      name: "Mike Johnson",
-      avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36",
-      lastMessage: "Thanks for your help!",
-      online: true,
-    },
-  ]);
+function Notifications({ user: selectedUser }) {
+  const { user } = useUser(); // 👈 current logged-in user
 
-  const [messages, setMessages] = useState([
-    { id: 1, sender: "John Doe", text: "Hey, how are you?", timestamp: "10:00 AM", sent: false },
-    { id: 2, sender: "You", text: "I'm good, thanks! How about you?", timestamp: "10:02 AM", sent: true },
-    { id: 3, sender: "John Doe", text: "I'm doing well too. Any plans for the weekend?", timestamp: "10:05 AM", sent: false },
-  ]);
+  const [contacts, setContacts] = useState([]);
+
+  const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const [selectedContact, setSelectedContact] = useState(null);
   const [inputMessage, setInputMessage] = useState("");
@@ -97,14 +80,55 @@ function Notifications() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+
+  useEffect(() => {
     const typingTimer = setTimeout(() => setIsTyping(false), 3000);
     return () => clearTimeout(typingTimer);
   }, [messages]);
 
+  // ✅ Fetch conversation function (defined once, outside useEffect)
+  const fetchConversation = async (otherUserId) => {
+    try {
+      const token = localStorage.getItem("token"); // Get token from storage
+      const res = await axios.get(
+        `http://localhost:5000/messages/${otherUserId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setMessages(res.data.messages);
+    } catch (err) {
+      console.error("Error fetching Conversation:", err);
+    }
+  };
+
+  // ✅ Fetch contacts
+  useEffect(() => {
+    const fetchChatList = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await axios.get("http://localhost:5000/chats", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setContacts(res.data.chats);
+      } catch (err) {
+        console.error("Error fetching Chat List:", err);
+      }
+    };
+
+    fetchChatList();
+  }, []);
+
+  // ✅ Handle contact selection
   const handleContactSelect = (contact) => {
     setSelectedContact(contact);
-    setDrawerOpen(false);
+    const otherUserId = contact.sender_id; // 👈 sender is the other user
+    fetchConversation(otherUserId); // 👈 now it’s in scope
   };
+
 
   const handleSendMessage = () => {
     if (inputMessage.trim() === "") {
@@ -146,22 +170,25 @@ function Notifications() {
     flexGrow: 1,
     overflowY: "auto",
     padding: theme.spacing(2),
+    display: "flex",
+    flexDirection: "column",
   }));
+
 
   const MessageBubble = styled(Box)(({ theme, sent }) => ({
     maxWidth: "70%",
-    padding: theme.spacing(1, 2),
+    padding: theme.spacing(1.2, 2),
     borderRadius: 20,
-    marginBottom: theme.spacing(1),
-    backgroundColor: sent ? theme.palette.primary.main : theme.palette.grey[200],
-    color: sent ? theme.palette.primary.contrastText : theme.palette.text.primary,
-    alignSelf: sent ? "flex-end" : "flex-start",
-    animation: "fadeIn 0.3s ease-out",
-    "@keyframes fadeIn": {
-      from: { opacity: 0, transform: "translateY(10px)" },
-      to: { opacity: 1, transform: "translateY(0)" },
-    },
+    marginBottom: theme.spacing(1.5),
+    backgroundColor: sent ? theme.palette.primary.main : theme.palette.grey[300],
+    color: sent ? "#fff" : "#000",
+    alignSelf: sent ? "flex-end" : "flex-start", // 👈 will only work if parent is flex
+    textAlign: sent ? "right" : "left",
+    boxShadow: "0 1px 3px rgba(0,0,0,0.15)",
+    transition: "all 0.3s ease",
   }));
+
+
 
   const ChatInputContainer = styled(Box)(({ theme }) => ({
     padding: theme.spacing(2),
@@ -176,14 +203,14 @@ function Notifications() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox mt={6} mb={3}>
+      <MDBox mt={4} mb={3}>
         <Grid container spacing={3} justifyContent="center">
           <Grid item xs={12} lg={12}>
             <Card>
               <MDBox p={2}>
                 <MDTypography variant="h5">Conversations</MDTypography>
               </MDBox>
-              <MDBox pt={2} px={2}>
+              <MDBox pt={2} px={2} >
                 <Box display="flex" height="100vh">
                   {!isMobile && (
                     <Box width={300} borderRight={1} borderColor="divider">
@@ -207,23 +234,28 @@ function Notifications() {
                               button
                               onClick={() => handleContactSelect(contact)}
                               selected={selectedContact && selectedContact.id === contact.id}
+                              sx={{
+                                px: 2, // 👈 adds left & right padding
+                                py: 1, // optional: vertical padding for balance
+                                borderRadius: 2,
+                              }}
                             >
                               <ListItemAvatar>
-                                <Avatar src={contact.avatar} alt={contact.name} />
+                                <Avatar src={contact.sender_profile_picture} alt={contact.sender_name} />
                               </ListItemAvatar>
                               <ListItemText
                                 primary={
                                   <Box display="flex" alignItems="center">
-                                    <Typography variant="subtitle1">{contact.name}</Typography>
+                                    <Typography variant="subtitle1">{contact.sender_name}</Typography>
                                     <Box ml={1} display="flex" alignItems="center">
                                       <FaCircle
                                         size={10}
-                                        color={contact.online ? "#4caf50" : "#bdbdbd"}
+                                        color={contact.sender_online ? "#4caf50" : "#bdbdbd"}
                                       />
                                     </Box>
                                   </Box>
                                 }
-                                secondary={contact.lastMessage}
+                                secondary={contact.text}
                               />
                             </ListItem>
                           ))}
@@ -247,29 +279,42 @@ function Notifications() {
                                 <MenuIcon />
                               </IconButton>
                             )}
-                            <Avatar src={selectedContact.avatar} alt={selectedContact.name} />
+                            <Avatar src={selectedContact.sender_profile_picture} alt={selectedContact.sender_name} />
                             <Box ml={2}>
-                              <Typography variant="h6">{selectedContact.name}</Typography>
+                              <Typography variant="h6">{selectedContact.sender_name}</Typography>
                               <Typography variant="body2" color="textSecondary">
-                                {selectedContact.online ? "Online" : "Offline"}
+                                {selectedContact.sender_online ? "Online" : "Offline"}
                               </Typography>
                             </Box>
                           </ChatHeader>
                           <ChatMessages>
-                            {messages.map((message) => (
-                              <MessageBubble key={message.id} sent={message.sent}>
-                                <Typography variant="body1">{message.text}</Typography>
-                                <Typography variant="caption" color="textSecondary">
-                                  {message.timestamp}
-                                </Typography>
-                              </MessageBubble>
-                            ))}
-                            {isTyping && (
-                              <Typography variant="body2" color="textSecondary" fontStyle="italic">
-                                {selectedContact.name} is typing...
-                              </Typography>
-                            )}
+                            {messages.map((message) => {
+                              const loggedInUserId = user?.id || user?.user?.id; // ✅ fixed
+                              const isMine = message.sender_id?.toString() === loggedInUserId?.toString();
+
+                              return (
+                                <MessageBubble key={message.id} sent={isMine}>
+                                  <Typography variant="body1">{message.text}</Typography>
+                                  <Typography
+                                    variant="caption"
+                                    sx={{
+                                      display: "block",
+                                      textAlign: isMine ? "right" : "left",
+                                      marginTop: 0.5,
+                                      opacity: 0.7,
+                                    }}
+                                  >
+                                    {new Date(message.created_at).toLocaleTimeString([], {
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                    })}
+                                  </Typography>
+                                </MessageBubble>
+                              );
+                            })}
+                            <div ref={messagesEndRef} />
                           </ChatMessages>
+
                           <ChatInputContainer>
                             <TextField
                               fullWidth
